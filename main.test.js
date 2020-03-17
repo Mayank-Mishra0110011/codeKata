@@ -1,28 +1,33 @@
-const calc = require("./main");
+const Interpreter = require("./main");
 
-var tests = [
-  "1+1",
-  "1 - 1",
-  "1* 1",
-  "1 /1",
-  "-123",
-  "123",
-  "2 /2+3 * 4.75- -6",
-  "12* 123",
-  "2 / (2 + 3) * 4.33 - -6",
-  "12* 123/-(-5 + 2)",
-  "((80 - (19)))",
-  "(1 - 2) + -(-(-(-4)))",
-  "1 - -(-(-(-4)))",
-  "(123.45*(678.90 / (-2.5+ 11.5)-(((80 -(19))) *33.25)) / 20) - (123.45*(678.90 / (-2.5+ 11.5)-(((80 -(19))) *33.25)) / 20) + (13 - 2)/ -(-11) ",
-  "((2.33 / (2.9+3.5)*4) - -6)",
-  "123.45*(678.90 / (-2.5+ 11.5)-(80 -19) *33.25) / 20 + 11"
-];
+var interpreter = new Interpreter();
+// Basic arithmetic
+test(`Test 1`, () => {
+  expect(interpreter.input("1 + 1")).toBe(2);
+});
+test(`Test 2`, () => {
+  expect(interpreter.input("2 - 1")).toBe(1);
+});
+test(`Test 3`, () => {
+  expect(interpreter.input("2 * 3")).toBe(6);
+});
+test(`Test 4`, () => {
+  expect(interpreter.input("8 / 4")).toBe(2);
+});
+test(`Test 5`, () => {
+  expect(interpreter.input("7 % 4")).toBe(3);
+});
 
-let t = 1;
-tests.forEach(function(m) {
-  test(`Test ${t}`, () => {
-    expect(calc(m[0])).toBe(m[1]);
-  });
-  t++;
+//Variables
+test(`Test 6`, () => {
+  expect(interpreter.input("x = 1")).toBe(1);
+});
+test(`Test 7`, () => {
+  expect(interpreter.input("x")).toBe(1);
+});
+test(`Test 8`, () => {
+  expect(interpreter.input("x + 3")).toBe(4);
+});
+test(`Test 9`, () => {
+  expect(interpreter.input("y")).toBeInstanceOf(Error);
 });
